@@ -22,7 +22,7 @@ delete_original_image = False
 
 # Define classes for labeling
 # in future define from Argparse
-# Set key for each class
+# Set keyboard k for each class (used for assignment)
 class1 = "female" 
 class1_key = 'f'
 
@@ -46,18 +46,16 @@ if not os.path.exists(labeled_output_path):
     os.mkdir(class2_path)
     os.mkdir(nolabel_path)
 
-
+# create loop for each file in unlabeled_data_path that is jpg
 for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
-
-    
-    # cv2.imshow("Image", image)
-    # cv2.waitKey(0)
 
     # Get number of files for each class
     count_class1 = len(os.listdir(f'{class1_path}'))
     count_class2 = len(os.listdir(f'{class2_path}'))
     count_nolabel = len(os.listdir(f'{nolabel_path}'))
 
+    # If Label keyboard key is pressed assign displayed image to label folder
+    # If unsassigned key pressed assign displayed image to nolabel folder
     try: 
         if keyboard.is_pressed('f'):
             cv2.imwrite(f'{class1_path}/{class1}{count_class1+1}.jpg', image)
@@ -73,6 +71,7 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
     except:
         pass
 
+    # assign image to "image" variable
     image = cv2.imread(imagePath)
 
     # Delete original image (if enabled)
@@ -86,3 +85,4 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
 # Print data count for each class
 print(f'{count_class1} in {class1}')
 print(f'{count_class2} in {class2}')
+print(f'{count_nolabel} in {class2}')
