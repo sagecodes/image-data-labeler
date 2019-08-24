@@ -7,33 +7,35 @@ import keyboard
 
 # Point to Dataset
 # in future use argparse
-
 unlabeled_data_path = 'data/'
+
+# Output path for labeled images
 labeled_output_path = 'labeled_data'
 
 
 # Define classes for labeling
 # in future define from Argparse
 # Set key for each class
-
-
 class1 = "female" 
 class1_key = 'f'
 
 class2 = "male" 
 class2_key = 'm'
 
+# get path names for classes
+class1_path = os.path.join(labeled_output_path, class1)
+class2_path = os.path.join(labeled_output_path, class2)
+nolabel_path = os.path.join(labeled_output_path, 'nolabel')
+
 
 # create output folder & folder for classes
 if not os.path.exists(labeled_output_path):
     os.mkdir(labeled_output_path)
-    os.mkdir(os.path.join(labeled_output_path, class1))
-    os.mkdir(os.path.join(labeled_output_path, class2))
-    os.mkdir(os.path.join(labeled_output_path, 'nolabel'))
+    os.mkdir(class1_path)
+    os.mkdir(class2_path)
+    os.mkdir(nolabel_path)
 
-class1_path = os.path.join(labeled_output_path, class1)
-class2_path = os.path.join(labeled_output_path, class2)
-nolabel_path = os.path.join(labeled_output_path, 'nolabel')
+
 
 for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
 
