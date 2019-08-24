@@ -25,29 +25,30 @@ unlabeled_data_path = 'data/'
 
 for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
 
+    # Get number of files for each class
+    count_class1 = len(os.listdir('female/'))
+    count_class2 = len(os.listdir('male/'))
+    print(count_class1)
+    print(count_class2)
+
+    # Read & Display image to be labeled
     image = cv2.imread(imagePath)
-    print("width: %d pixels" % (image.shape[1]))
-    print("height: %d pixels" % (image.shape[0]))
-    print("channels: %d" % (image.shape[2]))
-
     cv2.imshow("Image", image)
-
-    #https://pypi.org/project/keyboard/
+    cv2.waitKey(0)
 
     try: 
         if keyboard.is_pressed('f'):
-            cv2.imwrite("female/newimage.jpg", image)
+            cv2.imwrite(f'female/female{count_class1+1}.jpg', image)
             print('Added to female label')
+        
         elif keyboard.is_pressed('m'):
-            cv2.imwrite("male/newimage.jpg", image)
+            cv2.imwrite(f'male/male{count_class2+1}.jpg', image)
             print('Added to male label')
+        
         else:
+            cv2.imwrite("notlabeled/newimage.jpg", image)
             print("that key is not defined")
 
     except:
         break
 
-    cv2.waitKey(0)
-
-
-    # cv2.imwrite("/{class}/newimage.jpg", image)
