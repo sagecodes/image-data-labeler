@@ -2,6 +2,7 @@
 import cv2
 import glob
 import os
+import keyboard
 
 
 # Point to Dataset
@@ -17,13 +18,11 @@ unlabeled_data_path = 'data/'
 
 
 
-
-
-
 # Display first image from dataset
 
 # Assign to new dataset with key
 # move image to designated class folder
+
 for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
 
     image = cv2.imread(imagePath)
@@ -32,6 +31,22 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
     print("channels: %d" % (image.shape[2]))
 
     cv2.imshow("Image", image)
+
+    #https://pypi.org/project/keyboard/
+
+    try: 
+        if keyboard.is_pressed('f'):
+            cv2.imwrite("female/newimage.jpg", image)
+            print('Added to female label')
+        elif keyboard.is_pressed('m'):
+            cv2.imwrite("male/newimage.jpg", image)
+            print('Added to male label')
+        else:
+            print("that key is not defined")
+
+    except:
+        break
+
     cv2.waitKey(0)
 
 
