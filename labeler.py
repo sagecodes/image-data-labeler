@@ -28,6 +28,7 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
     # Get number of files for each class
     count_class1 = len(os.listdir('female/'))
     count_class2 = len(os.listdir('male/'))
+    count_nolabel = len(os.listdir('nolabel/'))
     print(count_class1)
     print(count_class2)
 
@@ -46,7 +47,7 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
             print('Added to male label')
         
         else:
-            cv2.imwrite("notlabeled/newimage.jpg", image)
+            cv2.imwrite(f'nolabel/nolabel{count_nolabel+1}.jpg', image)
             print("that key is not defined")
 
     except:
