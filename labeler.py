@@ -57,11 +57,11 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
     # If Label keyboard key is pressed assign displayed image to label folder
     # If unsassigned key pressed assign displayed image to nolabel folder
     try: 
-        if keyboard.is_pressed('f'):
+        if keyboard.is_pressed(class1_key):
             cv2.imwrite(f'{class1_path}/{class1}{count_class1+1}.jpg', image)
             print(f'Added to {class1} label')
         
-        elif keyboard.is_pressed('m'):
+        elif keyboard.is_pressed(class2_key):
             cv2.imwrite(f'{class2_path}/{class2}{count_class2+1}.jpg', image)
             print(f'Added to {class2} label')
 
