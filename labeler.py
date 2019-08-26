@@ -85,4 +85,4 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
 # Print data count for each class
 print(f'{count_class1} in {class1}')
 print(f'{count_class2} in {class2}')
-print(f'{count_nolabel} in {class2}')
+print(f'{count_nolabel} in nolabel')
