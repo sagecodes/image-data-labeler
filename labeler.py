@@ -29,6 +29,14 @@ class1_key = 'f'
 class2 = "male" 
 class2_key = 'm'
 
+class3 = "test1" 
+class3_key = 'l'
+
+class4 = "test2" 
+class4_key = 'k'
+
+
+
 ######################################
 ############## Program ###############   
 ######################################
@@ -36,6 +44,8 @@ class2_key = 'm'
 # get path names for classes
 class1_path = os.path.join(labeled_output_path, class1)
 class2_path = os.path.join(labeled_output_path, class2)
+class3_path = os.path.join(labeled_output_path, class3)
+class4_path = os.path.join(labeled_output_path, class4)
 nolabel_path = os.path.join(labeled_output_path, 'nolabel')
 
 
@@ -44,6 +54,8 @@ if not os.path.exists(labeled_output_path):
     os.mkdir(labeled_output_path)
     os.mkdir(class1_path)
     os.mkdir(class2_path)
+    os.mkdir(class3_path)
+    os.mkdir(class4_path)
     os.mkdir(nolabel_path)
 
 # create loop for each file in unlabeled_data_path that is jpg
@@ -52,6 +64,8 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
     # Get number of files for each class
     count_class1 = len(os.listdir(f'{class1_path}'))
     count_class2 = len(os.listdir(f'{class2_path}'))
+    count_class3 = len(os.listdir(f'{class3_path}'))
+    count_class4 = len(os.listdir(f'{class4_path}'))
     count_nolabel = len(os.listdir(f'{nolabel_path}'))
 
     # If Label keyboard key is pressed assign displayed image to label folder
@@ -64,7 +78,12 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
         elif keyboard.is_pressed(class2_key):
             cv2.imwrite(f'{class2_path}/{class2}{count_class2+1}.jpg', image)
             print(f'Added to {class2} label')
-
+        elif keyboard.is_pressed(class3_key):
+            cv2.imwrite(f'{class3_path}/{class3}{count_class3+1}.jpg', image)
+            print(f'Added to {class3} label')
+        elif keyboard.is_pressed(class4_key):
+            cv2.imwrite(f'{class4_path}/{class4}{count_class4+1}.jpg', image)
+            print(f'Added to {class4} label')
         else:
             cv2.imwrite(f'{nolabel_path}/{count_nolabel+1}.jpg', image)
             print("No label assigned to key")
@@ -85,4 +104,6 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
 # Print data count for each class
 print(f'{count_class1} in {class1}')
 print(f'{count_class2} in {class2}')
+print(f'{count_class3} in {class3}')
+print(f'{count_class4} in {class4}')
 print(f'{count_nolabel} in nolabel')
