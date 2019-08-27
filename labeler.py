@@ -98,6 +98,9 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
         os.remove(imagePath)
     
     # display image for labeling
+
+    cv2.namedWindow('Image',cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('Image', 600,600)
     cv2.imshow("Image", image)
     cv2.waitKey(0)
 
