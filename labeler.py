@@ -3,7 +3,6 @@ import cv2
 import glob
 import os
 import keyboard
-import sys
 
 
 ######################################
