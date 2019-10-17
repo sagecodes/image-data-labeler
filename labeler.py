@@ -3,6 +3,7 @@ import cv2
 import glob
 import os
 import keyboard
+import sys
 
 
 ######################################
@@ -49,7 +50,8 @@ class4_path = os.path.join(labeled_output_path, class4)
 nolabel_path = os.path.join(labeled_output_path, 'nolabel')
 
 
-# create output folder & folder for classes
+# Check for label data folder and each sub folder for classes
+# Creates the folder if it does not exsist
 if not os.path.exists(labeled_output_path):
     os.mkdir(labeled_output_path)
 
@@ -84,7 +86,6 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
         if keyboard.is_pressed(class1_key):
             cv2.imwrite(f'{class1_path}/{class1}{count_class1+1}.jpg', image)
             print(f'Added to {class1} label')
-        
         elif keyboard.is_pressed(class2_key):
             cv2.imwrite(f'{class2_path}/{class2}{count_class2+1}.jpg', image)
             print(f'Added to {class2} label')
@@ -94,10 +95,18 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
         elif keyboard.is_pressed(class4_key):
             cv2.imwrite(f'{class4_path}/{class4}{count_class4+1}.jpg', image)
             print(f'Added to {class4} label')
+        # press esc to quit script
+        elif keyboard.is_pressed('esc'):
+            raise SystemExit
             
         else:
             cv2.imwrite(f'{nolabel_path}/{count_nolabel+1}.jpg', image)
             print("No label assigned to key")
+
+    except SystemExit:
+        print("Quitting Program")
+        print("Quit on image: " + imagePath)
+        quit()
     except:
         pass
 
