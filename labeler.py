@@ -10,19 +10,19 @@ import keyboard
 ######################################
 
 # Point to Dataset
-# in future use argparse
 unlabeled_data_path = 'data/'
 
-# Output path for labeled images
+# Name output path for labeled images
+# Program will create this folder and sub folder sfor each class
 labeled_output_path = 'labeled_data'
 
-# Delete Original Image?
+# Delete Original Image
 # !!if True This will remove image from orginal dataset!!
+# USE EXTREME CAUTION: MAKE SURE YOU WANT THIS
 delete_original_image = False
 
 # Define classes for labeling
-# in future define from Argparse
-# Set keyboard k for each class (used for assignment)
+# Set keyboard key for each class (used for assignment)
 class1 = "female" 
 class1_key = 'f'
 
@@ -84,6 +84,7 @@ for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
         elif keyboard.is_pressed(class4_key):
             cv2.imwrite(f'{class4_path}/{class4}{count_class4+1}.jpg', image)
             print(f'Added to {class4} label')
+            
         else:
             cv2.imwrite(f'{nolabel_path}/{count_nolabel+1}.jpg', image)
             print("No label assigned to key")
