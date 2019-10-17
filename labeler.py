@@ -52,10 +52,20 @@ nolabel_path = os.path.join(labeled_output_path, 'nolabel')
 # create output folder & folder for classes
 if not os.path.exists(labeled_output_path):
     os.mkdir(labeled_output_path)
+
+if not os.path.exists(class1_path):
     os.mkdir(class1_path)
+
+if not os.path.exists(class2_path):
     os.mkdir(class2_path)
+
+if not os.path.exists(class3_path):
     os.mkdir(class3_path)
+
+if not os.path.exists(class4_path):
     os.mkdir(class4_path)
+
+if not os.path.exists(nolabel_path):
     os.mkdir(nolabel_path)
 
 # create loop for each file in unlabeled_data_path that is jpg
