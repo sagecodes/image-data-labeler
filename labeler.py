@@ -3,7 +3,7 @@ import cv2
 import glob
 import os
 import keyboard
-
+import click
 
 ######################################
 ############ Settings ###############   
@@ -35,11 +35,12 @@ class3_key = 'l'
 class4 = "test2" 
 class4_key = 'k'
 
-
+@click.command()
+@click.option('--class1', default=None, help='class')
+@click.option('--class2', default=None, help='class2')
+@click.option('--class3', default=None, help='class3')
+@click.option('--class4', default=None, help='class4')
 def labeler():
-    ######################################
-    ############## Program ###############   
-    ######################################
 
     # get path names for classes
     class1_path = os.path.join(labeled_output_path, class1)
