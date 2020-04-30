@@ -35,12 +35,19 @@ class3_key = 'l'
 class4 = "test2" 
 class4_key = 'k'
 
+# classes could be dictiionary?S
+# classes =  {"k":"king", "q":queen}
+# for key in classes
+#   if not os.path.exists(classes[key]):
+#        os.mkdir(classes[key])
+
+# Keep track of labels in DF / csv
+# start index
+
+
 @click.command()
-@click.option('--class1', default=None, help='class')
-@click.option('--class2', default=None, help='class2')
-@click.option('--class3', default=None, help='class3')
-@click.option('--class4', default=None, help='class4')
-def labeler():
+@click.option('--classes', default=None, help='class')
+def labeler(class1, class2, class3, class4):
 
     # get path names for classes
     class1_path = os.path.join(labeled_output_path, class1)
@@ -48,7 +55,6 @@ def labeler():
     class3_path = os.path.join(labeled_output_path, class3)
     class4_path = os.path.join(labeled_output_path, class4)
     nolabel_path = os.path.join(labeled_output_path, 'nolabel')
-
 
     # Check for label data folder and each sub folder for classes
     # Creates the folder if it does not exsist
