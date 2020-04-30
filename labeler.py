@@ -16,25 +16,6 @@ unlabeled_data_path = 'data/'
 # Program will create this folder and sub folder sfor each class
 labeled_output_path = 'labeled_data'
 
-# Delete Original Image
-# !!if True This will remove image from orginal dataset!!
-# USE EXTREME CAUTION: MAKE SURE YOU WANT THIS
-delete_original_image = False
-
-# Define classes for labeling
-# Set keyboard key for each class (used for assignment)
-class1 = "female" 
-class1_key = 'f'
-
-class2 = "male" 
-class2_key = 'm'
-
-class3 = "test1" 
-class3_key = 'l'
-
-class4 = "test2" 
-class4_key = 'k'
-
 # classes could be dictiionary?S
 # classes =  {"k":"king", "q":queen}
 # for key in classes
@@ -47,7 +28,7 @@ class4_key = 'k'
 
 @click.command()
 @click.option('--classes', default=None, help='class')
-def labeler(class1, class2, class3, class4):
+def labeler(classes):
 
     # get path names for classes
     class1_path = os.path.join(labeled_output_path, class1)
