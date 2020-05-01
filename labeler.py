@@ -39,21 +39,29 @@ def labeler(classes, input_path, output_path):
     for class_key in classes:
         class_path = os.path.join(output_path, classes[class_key])
         class_obj[class_key] = {"class": classes[class_key], 
-                                    "path": class_path}
+                                    "path": class_path, 
+                                    "count": None}
         
         if not os.path.exists(class_path):
             os.mkdir(class_path)
 
+        class_obj[class_key]["count"] = len(os.listdir(f'{class_path}'))
+    print(class_obj)
+
     # create loop for each file in unlabeled_data_path that is jpg
     for imagePath in glob.glob(f'{input_path}*.jpg'):
+
+        
+
         # If Label keyboard key is pressed assign displayed image to label folder
         # If unsassigned key pressed assign displayed image to nolabel folder
         try:
             key = keyboard.read_key(suppress=False)
 
             if key in classes.keys():
-                cv2.imwrite(f'{classes[key][path]}/{classes[key]}{count_class1+1}.jpg', image)                
-                print(f'Added to {classes[key]} label')
+                class_obj[key]["count"] += 1
+                cv2.imwrite(f'{class_obj[key]["path"]}/{class_obj[key]["class"]}{class_obj[key]["count"]}.jpg', image)                
+                print(f'Added to {class_obj[key]} label')
 
             # # press esc to quit script
             elif keyboard.is_pressed('esc'):
@@ -71,7 +79,7 @@ def labeler(classes, input_path, output_path):
             print("pass")
             pass
 
-        # assign image to "image" variable
+        # # assign image to "image" variable
         image = cv2.imread(imagePath)
         
         # display image for labeling
