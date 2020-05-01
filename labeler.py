@@ -4,73 +4,58 @@ import glob
 import os
 import keyboard
 import click
+import json
+
+# TODO:
+# Keep track of labels in DF / csv
+# start index option
 
 # unlabeled_data_path = 'data/'
-
 # labeled_output_path = 'labeled_data'
-
-# classes could be dictiionary?S
-# classes =  {"k":"king", "q":queen}
-# for key in classes
-#   if not os.path.exists(classes[key]):
-#        os.mkdir(classes[key])
-
-# Keep track of labels in DF / csv
-# start index
-
-
 @click.command()
-@click.option('--classes', default=None, help='class')
+@click.option('--classes', default=None, help='class', type=str)
 @click.option('--input_path', default=None, help='input')
 @click.option('--output_path', default=None, help='output')
 def labeler(classes, input_path, output_path):
+    # convert classes arg to dict
+    classes = classes.replace("'", '"')
+    json.loads(classes)
+    classes = eval(classes)
+    print(type(classes))
+    print(classes)
 
+    # create output folder if it does not exsist
+    if not os.path.exists(output_path):
+            os.mkdir(output_path)
     
-    if not os.path.exists(labeled_output_path):
-            os.mkdir(labeled_output_path)
-    
-    # No labels
+    # create nolabel output folder if it does not exsist
     nolabel_path = os.path.join(output_path, 'nolabel')
     if not os.path.exists(nolabel_path):
             os.mkdir(nolabel_path)
     
+    # Check for label data folder and each sub folder for classes
+    # Creates the folder if it does not exsist
+    class_obj = {}
     for class_key in classes:
-        # get path names for classes
         class_path = os.path.join(output_path, classes[class_key])
+        class_obj[class_key] = {"class": classes[class_key], 
+                                    "path": class_path}
         
-        # Check for label data folder and each sub folder for classes
-        # Creates the folder if it does not exsist
         if not os.path.exists(class_path):
-            os.mkdir(nolabel_path)
-
-    
+            os.mkdir(class_path)
 
     # create loop for each file in unlabeled_data_path that is jpg
     for imagePath in glob.glob(f'{input_path}*.jpg'):
-
-        # Get number of files for each class
-        count_class1 = len(os.listdir(f'{class1_path}'))
-        count_class2 = len(os.listdir(f'{class2_path}'))
-        count_class3 = len(os.listdir(f'{class3_path}'))
-        count_class4 = len(os.listdir(f'{class4_path}'))
-        count_nolabel = len(os.listdir(f'{nolabel_path}'))
-
         # If Label keyboard key is pressed assign displayed image to label folder
         # If unsassigned key pressed assign displayed image to nolabel folder
-        try: 
-            if keyboard.is_pressed(class1_key):
-                cv2.imwrite(f'{class1_path}/{class1}{count_class1+1}.jpg', image)
-                print(f'Added to {class1} label')
-            elif keyboard.is_pressed(class2_key):
-                cv2.imwrite(f'{class2_path}/{class2}{count_class2+1}.jpg', image)
-                print(f'Added to {class2} label')
-            elif keyboard.is_pressed(class3_key):
-                cv2.imwrite(f'{class3_path}/{class3}{count_class3+1}.jpg', image)
-                print(f'Added to {class3} label')
-            elif keyboard.is_pressed(class4_key):
-                cv2.imwrite(f'{class4_path}/{class4}{count_class4+1}.jpg', image)
-                print(f'Added to {class4} label')
-            # press esc to quit script
+        try:
+            key = keyboard.read_key(suppress=False)
+
+            if key in classes.keys():
+                cv2.imwrite(f'{classes[key][path]}/{classes[key]}{count_class1+1}.jpg', image)                
+                print(f'Added to {classes[key]} label')
+
+            # # press esc to quit script
             elif keyboard.is_pressed('esc'):
                 raise SystemExit
                 
@@ -83,29 +68,25 @@ def labeler(classes, input_path, output_path):
             print("Quit on image: " + imagePath)
             quit()
         except:
+            print("pass")
             pass
 
         # assign image to "image" variable
         image = cv2.imread(imagePath)
-
-        # Delete original image (if enabled)
-        if delete_original_image == True:
-            os.remove(imagePath)
         
         # display image for labeling
         cv2.imshow("Image", image)
         cv2.namedWindow('Image',cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Image', 600,600)
-        
         cv2.waitKey(0)
 
-    # Print data count for each class
-    print(f'{count_class1} in {class1}')
-    print(f'{count_class2} in {class2}')
-    print(f'{count_class3} in {class3}')
-    print(f'{count_class4} in {class4}')
-    print(f'{count_nolabel} in nolabel')
+    # Get number of files for each class
+    # count_class1 = len(os.listdir(f'{class1_path}'))
+    # count_nolabel = len(os.listdir(f'{nolabel_path}'))
 
+    # # Print data count for each class
+    # print(f'{count_class1} in {class1}')
+    # print(f'{count_nolabel} in nolabel')
 
 if __name__ == '__main__':
     labeler()
