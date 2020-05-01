@@ -5,16 +5,9 @@ import os
 import keyboard
 import click
 
-######################################
-############ Settings ###############   
-######################################
+# unlabeled_data_path = 'data/'
 
-# Point to Dataset
-unlabeled_data_path = 'data/'
-
-# Name output path for labeled images
-# Program will create this folder and sub folder sfor each class
-labeled_output_path = 'labeled_data'
+# labeled_output_path = 'labeled_data'
 
 # classes could be dictiionary?S
 # classes =  {"k":"king", "q":queen}
@@ -28,7 +21,9 @@ labeled_output_path = 'labeled_data'
 
 @click.command()
 @click.option('--classes', default=None, help='class')
-def labeler(classes):
+@click.option('--input_path', default=None, help='input')
+@click.option('--output_path', default=None, help='output')
+def labeler(classes, input_path, output_path):
 
     # get path names for classes
     class1_path = os.path.join(labeled_output_path, class1)
