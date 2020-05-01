@@ -25,35 +25,28 @@ import click
 @click.option('--output_path', default=None, help='output')
 def labeler(classes, input_path, output_path):
 
-    # get path names for classes
-    class1_path = os.path.join(labeled_output_path, class1)
-    class2_path = os.path.join(labeled_output_path, class2)
-    class3_path = os.path.join(labeled_output_path, class3)
-    class4_path = os.path.join(labeled_output_path, class4)
-    nolabel_path = os.path.join(labeled_output_path, 'nolabel')
-
-    # Check for label data folder and each sub folder for classes
-    # Creates the folder if it does not exsist
+    
     if not os.path.exists(labeled_output_path):
-        os.mkdir(labeled_output_path)
-
-    if not os.path.exists(class1_path):
-        os.mkdir(class1_path)
-
-    if not os.path.exists(class2_path):
-        os.mkdir(class2_path)
-
-    if not os.path.exists(class3_path):
-        os.mkdir(class3_path)
-
-    if not os.path.exists(class4_path):
-        os.mkdir(class4_path)
-
+            os.mkdir(labeled_output_path)
+    
+    # No labels
+    nolabel_path = os.path.join(output_path, 'nolabel')
     if not os.path.exists(nolabel_path):
-        os.mkdir(nolabel_path)
+            os.mkdir(nolabel_path)
+    
+    for class_key in classes:
+        # get path names for classes
+        class_path = os.path.join(output_path, classes[class_key])
+        
+        # Check for label data folder and each sub folder for classes
+        # Creates the folder if it does not exsist
+        if not os.path.exists(class_path):
+            os.mkdir(nolabel_path)
+
+    
 
     # create loop for each file in unlabeled_data_path that is jpg
-    for imagePath in glob.glob(f'{unlabeled_data_path}*.jpg'):
+    for imagePath in glob.glob(f'{input_path}*.jpg'):
 
         # Get number of files for each class
         count_class1 = len(os.listdir(f'{class1_path}'))
