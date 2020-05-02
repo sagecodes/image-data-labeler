@@ -2,7 +2,6 @@
 import cv2
 import glob
 import os
-import keyboard
 import click
 import json
 
@@ -51,46 +50,27 @@ def labeler(classes, input_path, output_path):
     # create loop for each file in unlabeled_data_path that is jpg
     for imagePath in glob.glob(f'{input_path}*.jpg'):
 
-        
-
-        # If Label keyboard key is pressed assign displayed image to label folder
-        # If unsassigned key pressed assign displayed image to nolabel folder
-        try:
-            key = keyboard.read_key(suppress=False)
-
-            if key in classes.keys():
-                class_obj[key]["count"] += 1
-                cv2.imwrite(f'{class_obj[key]["path"]}/{class_obj[key]["class"]}{class_obj[key]["count"]}.jpg', image)                
-                print(f'Added to {class_obj[key]} label')
-
-            # # press esc to quit script
-            elif keyboard.is_pressed('esc'):
-                raise SystemExit
-                
-            else:
-                cv2.imwrite(f'{nolabel_path}/{count_nolabel+1}.jpg', image)
-                print("No label assigned to key")
-
-        except SystemExit:
-            print("Quitting Program")
-            print("Quit on image: " + imagePath)
-            quit()
-        except:
-            print("pass")
-            pass
-
-        # # assign image to "image" variable
         image = cv2.imread(imagePath)
-        
         # display image for labeling
         cv2.imshow("Image", image)
         cv2.namedWindow('Image',cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Image', 600,600)
-        cv2.waitKey(0)
+        key = cv2.waitKey(0)
+        key = chr(key)
+        print(ord(key))
 
-    # Get number of files for each class
-    # count_class1 = len(os.listdir(f'{class1_path}'))
-    # count_nolabel = len(os.listdir(f'{nolabel_path}'))
+        if key in classes.keys():
+            class_obj[key]["count"] += 1
+            cv2.imwrite(f'{class_obj[key]["path"]}/{class_obj[key]["class"]}{class_obj[key]["count"]}.jpg', image)                
+            print(f'Added to {class_obj[key]} label')
+
+        # # press esc to quit script
+        elif ord(key) == 27:
+            raise SystemExit
+            print("Exist program")      
+        else:
+            cv2.imwrite(f'{nolabel_path}/{count_nolabel+1}.jpg', image)
+            print("No label assigned to key")
 
     # # Print data count for each class
     # print(f'{count_class1} in {class1}')
