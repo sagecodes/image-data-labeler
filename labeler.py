@@ -31,6 +31,7 @@ def labeler(classes, input_path, output_path):
     nolabel_path = os.path.join(output_path, 'nolabel')
     if not os.path.exists(nolabel_path):
             os.mkdir(nolabel_path)
+    nolabel_count = len(os.listdir(f'{nolabel_path}'))
     
     # Check for label data folder and each sub folder for classes
     # Creates the folder if it does not exsist
@@ -69,7 +70,8 @@ def labeler(classes, input_path, output_path):
             raise SystemExit
             print("Exist program")      
         else:
-            cv2.imwrite(f'{nolabel_path}/{count_nolabel+1}.jpg', image)
+            nolabel_count += 1
+            cv2.imwrite(f'{nolabel_path}/{nolabel_count}.jpg', image)
             print("No label assigned to key")
 
     # # Print data count for each class
