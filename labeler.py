@@ -52,7 +52,6 @@ def labeler(classes, input_path, output_path):
     for imagePath in glob.glob(f'{input_path}*.jpg'):
 
         image = cv2.imread(imagePath)
-        # display image for labeling
         cv2.imshow("Image", image)
         cv2.namedWindow('Image',cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Image', 600,600)
