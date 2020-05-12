@@ -15,7 +15,8 @@ import json
 @click.option('--classes', default=None, help='class', type=str)
 @click.option('--input_path', default=None, help='input')
 @click.option('--output_path', default=None, help='output')
-def labeler(classes, input_path, output_path):
+@click.option('--image_type', default='jpg', help='Extension for output images to be saved as')
+def labeler(classes, input_path, output_path, image_type):
     # convert classes arg to dict
     classes = classes.replace("'", '"')
     json.loads(classes)
@@ -61,7 +62,7 @@ def labeler(classes, input_path, output_path):
 
         if key in classes.keys():
             class_obj[key]["count"] += 1
-            cv2.imwrite(f'{class_obj[key]["path"]}/{class_obj[key]["class"]}{class_obj[key]["count"]}.jpg', image)                
+            cv2.imwrite(f'{class_obj[key]["path"]}/{class_obj[key]["class"]}{class_obj[key]["count"]}.{image_type}', image)                
             print(f'Added to {class_obj[key]} label')
 
         # # press esc to quit script
@@ -70,7 +71,7 @@ def labeler(classes, input_path, output_path):
             print("Exist program")      
         else:
             nolabel_count += 1
-            cv2.imwrite(f'{nolabel_path}/{nolabel_count}.jpg', image)
+            cv2.imwrite(f'{nolabel_path}/{nolabel_count}.{image_type}', image)
             print("No label assigned to key")
 
     # # Print data count for each class
