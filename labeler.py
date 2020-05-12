@@ -50,8 +50,19 @@ def labeler(classes, input_path, output_path, image_type):
     print(class_obj)
 
     # create loop for each file in unlabeled_data_path that is jpg
-    for imagePath in glob.glob(f'{input_path}*.jpg'):
 
+    types = ['jpg', 'png']
+    images_paths = []
+
+    for extension in types:
+        images_paths.extend(glob.glob(f'{input_path}*.{extension}'))
+
+    print(images_paths)
+
+
+    for imagePath in images_paths:
+        print('\n---------------\n')
+        print(imagePath)
         image = cv2.imread(imagePath)
         cv2.imshow("Image", image)
         cv2.namedWindow('Image',cv2.WINDOW_NORMAL)
@@ -68,7 +79,8 @@ def labeler(classes, input_path, output_path, image_type):
         # # press esc to quit script
         elif ord(key) == 27:
             raise SystemExit
-            print("Exist program")      
+            print("Exit program")      
+
         else:
             nolabel_count += 1
             cv2.imwrite(f'{nolabel_path}/{nolabel_count}.{image_type}', image)
