@@ -87,8 +87,13 @@ def labeler(classes, input_path, output_path, image_type):
             print("No label assigned to key")
 
     # # Print data count for each class
-    # print(f'{count_class1} in {class1}')
-    # print(f'{count_nolabel} in nolabel')
+    print('\n--------------------------------\n')
+    print("Total labels:")
+    for class_key in classes:
+        class_name = class_obj[class_key]['class']
+        class_count = class_obj[class_key]['count']
+        print(f'{class_name} : {class_count}')
+    print('\n--------------------------------\n')
 
 if __name__ == '__main__':
     labeler()
