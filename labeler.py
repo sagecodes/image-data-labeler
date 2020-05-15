@@ -53,7 +53,7 @@ def labeler(classes, input_path, output_path, image_type):
     types = ['jpg', 'png']
     images_paths = []
 
-    # Create list of files in unlabled path with extensions in types list
+    # Create list of files in un-labled path with extensions in types list
     for extension in types:
         images_paths.extend(glob.glob(f'{input_path}*.{extension}'))
 
