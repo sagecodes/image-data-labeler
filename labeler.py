@@ -49,17 +49,15 @@ def labeler(classes, input_path, output_path, image_type):
         class_obj[class_key]["count"] = len(os.listdir(f'{class_path}'))
     print(class_obj)
 
-    # create loop for each file in unlabeled_data_path that is jpg
-
+    # type of files to include for labeling 
     types = ['jpg', 'png']
     images_paths = []
 
+    # Create list of files in unlabled path with extensions in types list
     for extension in types:
         images_paths.extend(glob.glob(f'{input_path}*.{extension}'))
 
-    print(images_paths)
-
-
+    # create loop for each file in unlabeled_data_path that is in types
     for imagePath in images_paths:
         print('\n---------------\n')
         print(imagePath)
@@ -93,9 +91,8 @@ def labeler(classes, input_path, output_path, image_type):
         class_name = class_obj[class_key]['class']
         class_count = class_obj[class_key]['count']
         print(f'{class_name} : {class_count}')
-
     print(f'No Label: {nolabel_count}')
     print('\n--------------------------------\n')
 
 if __name__ == '__main__':
-    labeler()
+    labeler() 
