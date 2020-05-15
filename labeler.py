@@ -93,6 +93,8 @@ def labeler(classes, input_path, output_path, image_type):
         class_name = class_obj[class_key]['class']
         class_count = class_obj[class_key]['count']
         print(f'{class_name} : {class_count}')
+
+    print(f'No Label: {nolabel_count}')
     print('\n--------------------------------\n')
 
 if __name__ == '__main__':
