@@ -30,7 +30,10 @@ def labeler(classes, input_path, output_path, image_type):
     if not os.path.exists(output_path):
             os.mkdir(output_path)
 
-    
+    my_file = Path("labels.csv")
+    if not my_file.is_file():
+        df = pd.DataFrame(columns=["path", "label"])
+        df.to_csv("labels.csv")
     
     # create nolabel output folder if it does not exsist
     nolabel_path = os.path.join(output_path, 'nolabel')
