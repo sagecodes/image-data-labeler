@@ -4,6 +4,8 @@ import glob
 import os
 import click
 import json
+from pathlib import Path
+import pandas as pd
 
 # TODO:
 # Keep track of labels in DF / csv
@@ -27,6 +29,8 @@ def labeler(classes, input_path, output_path, image_type):
     # create output folder if it does not exsist
     if not os.path.exists(output_path):
             os.mkdir(output_path)
+
+    
     
     # create nolabel output folder if it does not exsist
     nolabel_path = os.path.join(output_path, 'nolabel')
